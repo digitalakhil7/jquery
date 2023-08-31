@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<h2>Student Form</h2>
+<form action="/newpage" method="post" id="formSubmit">
+    Name: <input type="text" name="username" id="username"><span id="usernameError"></span><br><br>
+    Password: <input type="text" name="password" id="password"><span id="passwordError"></span><br><br>
+    <input type="submit" value="Submit">
+</form>
+<script>
+    $(document).ready(() => {
+        // 1. Hide Error Section
+        $("#usernameError").hide()
+        $("#passwordError").hide()
+
+        // 2. define error variable
+        var usernameError = false;
+        var passwordError = false;
+
+        // 3. define validate function
+        function validate_username(){
+            // read form value
+            var val = $("#username").val();
+            if(val==''){
+                $("#usernameError").show()
+                $("#usernameError").html("Enter name");
+                $("#usernameError").css('color','red');
+                usernameError = false;
+            }else{
+                $("#usernameError").hide()
+                usernameError = true;
+            }
+            return usernameError;
+        }
+
+        function validate_password(){
+            // read form value
+            var val = $("#password").val();
+            if(val==''){
+                $("#passwordError").show()
+                $("#passwordError").html("Enter Password");
+                $("#passwordError").css('color','red');
+                passwordError = false;
+            }else{
+                $("#passwordError").hide()
+                passwordError = true;
+            }
+            return passwordError;
+        }
+
+        // 4. link with action event
+        $("#username").keyup(()=>{
+            validate_username();
+        })
+
+        $("#password").keyup(()=>{
+            validate_password();
+        })
+        // on form submit
+        $("#formSubmit").submit(()=>{
+
+            validate_username();
+            validate_password();
+            if(usernameError && passwordError)
+                return true;
+            else
+                return false;
+        })
+    });
+</script>
+</body>
+</html>

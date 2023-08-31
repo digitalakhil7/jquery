@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<h2>Hey</h2>
+<p class="a" myname='customName'></p>
+<p class="b" myname='customName'></p>
+<button type="button" class="btn btn-success" id="myBtn">Click</button>
+<input type="text" name="myname" id="myname">
+<hr>
+<h3 id="showtask">Show hide toggle</h3>
+<button class="one btn btn-success">Show</button>
+<button class="two btn btn-warning">Hide</button>
+<button class="three btn btn-info">Toggle</button>
+<script>
+    $(document).ready(() => {
+        $(".a").text("adding <b>text</b>")
+        $(".b").html("adding <b>text</b>")
+    });
+    $("#myBtn").click(()=> {
+        alert("The paragraph was clicked.");
+    }); 
+    $("#myname").keydown(()=>{
+        $(this).css('background-color','green');
+    });
+    $("#myname").keyup(()=>{
+        $(this).css('background-color','yellow');
+    });
+    $("#myname").focus(()=>{
+        $(this).css('background-color','yellow');
+    });
+
+    // show task
+    $(".one").click(()=>{
+        $("#showtask").show()
+    })
+    $(".two").click(()=>{
+        $("#showtask").hide()
+    })
+    $(".three").click(()=>{
+        $("#showtask").toggle()
+    })
+</script>
+</body>
+</html>

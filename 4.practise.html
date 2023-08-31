@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+<h2>Employee Form</h2>
+<form action="/newpage" method="post" id="formSubmit">
+    Employee Name: <input type="text" name="ename" id="ename"><span id="enameError"></span><br><br>
+    Employee Sal: <input type="text" name="esal" id="esal"><span id="esalError"></span><br><br>
+    Employee Department: <select name="edept" id="edept">
+        <option value="">--Select--</option>
+        <option value="dev">Dev</option>
+        <option value="qa">QA</option>
+        <option value="db">DB</option>
+    </select><span id="edeptError"></span><br><br>
+    Gender: <input type="radio" name="egen" id="m" value="male">  Male 
+            <input type="radio" name="egen" id="f" value="female">  Female 
+            <span id="egenError"></span><br><br>
+    Languages: <input type="checkbox" name="elang" id="e" value="eng"> ENG
+               <input type="checkbox" name="elang" id="e" value="tel"> TEL
+               <input type="checkbox" name="elang" id="e" value="hin"> HIN
+               <input type="checkbox" name="elang" id="e" value="tam"> TAM
+    <span id="elangError"></span><br><br>
+    Games: <select name="egames" id="egames" multiple="multiple">
+        <option value="tt">TT</option>
+        <option value="fb">FB</option>
+        <option value="bb">BB</option>
+    </select>
+    <span id="egamesError"></span><br><br>
+    <input type="submit" value="Submit">
+</form>
+<script>
+    $(document).ready(() => {
+        // 1. Hide Error Section
+        $("#enameError").hide();
+        $("#esalError").hide();
+        $("#edeptError").hide();
+        $("#egenError").hide();
+        $("#elangError").hide();
+        $("#egamesError").hide();
+
+        // 2. define error variable
+        var enameError = false;
+        var esalError = false;
+        var edeptError = false;
+        var egenError = false;
+        var elangError = false;
+        var egamesError = false;
+
+        // 3. define validate function
+        function validate_ename(){
+            // read form input
+            var val = $("#ename").val();
+            var exp = /^[A-Za-z]{4,8}$/;
+            if(val==''){
+                enameError = false;
+                $("#enameError").show();
+                $("#enameError").html("Name cannot be empty");
+                $("#enameError").css('color','red');
+            }
+            else if(!exp.test(val)){
+                enameError = false;
+                $("#enameError").show();
+                $("#enameError").html("Name should be min 4 and max 8 chars");
+                $("#enameError").css('color','red');
+            }
+            else{
+                enameError = true;
+                $("#enameError").hide();
+            }
+        }
+
+        function validate_esal(){
+            // read form input
+            var val = $("#esal").val();
+            if(val==''){
+                esalError = false;
+                $("#esalError").show();
+                $("#esalError").html("Salary cannot be empty");
+                $("#esalError").css('color','red');
+            }else{
+                esalError = true;
+                $("#esalError").hide();
+            }
+            return esalError;
+        }
+
+        function validate_edept(){
+            // read form input
+            var val = $("#edept").val();
+            if(val==''){
+                edeptError = false;
+                $("#edeptError").show();
+                $("#edeptError").html("Department cannot be empty");
+                $("#edeptError").css('color','red');
+            }else{
+                edeptError = true;
+                $("#edeptError").hide();
+            }
+            return edeptError;
+        }
+
+        function validate_egen(){
+            // read form input
+            var len = $('[name="egen"]:checked').length;
+            if(len == 0){
+                egenError = false;
+                $("#egenError").show();
+                $("#egenError").html("Radio cannot be empty");
+                $("#egenError").css('color','red');
+            }else{
+                egenError = true;
+                $("#egenError").hide();
+            }
+            return egenError;
+        }
+
+        function validate_elang(){
+            // read form input
+            var len = $('[name="elang"]:checked').length;
+            if(len == 0){
+                elangError = false;
+                $("#elangError").show();
+                $("#elangError").html("Languages cannot be empty");
+                $("#elangError").css('color','red');
+            }else{
+                elangError = true;
+                $("#elangError").hide();
+            }
+            return elangError;
+        }
+        
+        function validate_egames(){
+            // read form input
+            var val = $("#egames").val();
+            alert(val);
+            if(val == ''){
+                egamesError = false;
+                $("#egamesError").show();
+                $("#egamesError").html("Games cannot be empty");
+                $("#egamesError").css('color','red');
+            }else{
+                egamesError = true;
+                $("#egamesError").hide();
+            }
+            return egamesError;
+        }
+        // 4. link with action event
+        $("#ename").keyup(()=>{
+            validate_ename();
+        })
+
+        $("#esal").keyup(()=>{
+            validate_esal();
+        })
+
+        $("#edept").change(()=>{
+            validate_edept();
+        })
+
+        $('[name="egen"]').click(()=>{
+            validate_egen();
+        })
+
+        $('[name="elang"]').click(()=>{
+            validate_elang();
+        })
+
+        $("#egames").click(()=>{
+            validate_egames();
+        })
+        // 5. on form submit
+        $("#formSubmit").submit(()=>{
+            validate_ename();
+            validate_esal();
+            validate_edept();
+            validate_egen();
+            validate_elang();
+            validate_egames();
+            if(enameError && esalError && edeptError && egenError && elangError
+            && egamesError){
+                return true
+            }
+            else
+                return false
+        })
+    });
+</script>
+</body>
+</html>
